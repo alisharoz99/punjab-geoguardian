@@ -1,0 +1,81 @@
+point_id,correct,note
+1,False,"Predicted Other, actual Built-up (residential complex)"
+2,True,
+3,False,"Predicted Other, actual Vegetation (grass edge)"
+4,True,
+5,True,
+6,True,
+7,True,
+8,True,
+9,True,
+10,True,
+11,False,"Predicted Built-up, actual empty/bare plot inside a housing society"
+12,True,
+13,True,
+14,True,
+15,True,
+16,True,
+17,True,
+18,True,
+19,True,
+20,False,"Predicted Other, actual tree cover inside a residential house (mixed pixel)"
+21,True,
+22,False,"Predicted Other, actual Vegetation"
+23,True,
+24,True,
+25,True,
+26,True,
+27,True,
+28,False,Mixed pixel near built-up boundary
+29,True,
+30,True,
+31,False,"Point landed on road within built-up area, predicted Other instead of Built-up"
+32,True,
+33,True,
+34,True,
+35,True,
+36,True,
+37,True,
+38,False,"Predicted Vegetation, actual bare/empty plot inside a housing society"
+39,False,"Predicted Other, actual Built-up"
+40,True,
+41,True,
+42,True,
+43,True,
+44,True,
+45,False,"Predicted Other, actual Vegetation"
+46,True,"New society, empty/bare plots — correctly matched Other"
+47,True,
+48,True,
+49,True,
+50,True,
+51,True,
+52,True,
+53,True,Trees as road median/partition
+54,True,
+55,True,Vacant plots between developed society
+56,True,Park in developed area
+57,False,"Point on main road in developed area, predicted Other"
+58,True,"Trees on roadside, area developed"
+59,True,~50 kanal simple green land
+60,True,
+61,True,
+62,False,"Predicted Other, actual road within society"
+63,False,"Predicted Built-up, actual school playground bare mud"
+64,True,
+65,False,"Predicted Other, actual Built-up"
+66,True,
+67,True,
+68,False,"Predicted Other, actual Built-up"
+69,True,
+70,True,
+71,False,"Predicted Other, actual Built-up"
+72,True,
+73,True,
+74,True,
+75,False,"Predicted Other, actual road"
+76,True,
+77,True,
+78,False,"Predicted Other, actual corner of house on road, area developed"
+79,True,Vacant land near houses in society - matched Other
+80,True,
