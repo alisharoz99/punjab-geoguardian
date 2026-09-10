@@ -71,7 +71,7 @@ Unlike a purely offline analysis notebook, this project is deployed as a **live,
 *(Add 2-3 screenshots here — dashboard hero section, the map explorer in action, and the AI-generated summary card. Save them to `Outputs/screenshots/` and reference like:)*
 
 ```markdown
-![Dashboard Overview](Outputs/screenshots/dashboard-overview.png)
+![Dashboard Overview](Outputs/screenshots/dashboard-overview1.png)
 ![Map Explorer](Outputs/screenshots/map-explorer.png)
 ```
 
