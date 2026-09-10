@@ -1,11 +1,12 @@
 """
-FastAPI backend serving pre-computed GeoGuardian results, plus a Gemini-powered
-endpoint that generates a human-readable narrative summary of the findings.
+FastAPI backend serving pre-computed GeoGuardian results, a Gemini-powered
+narrative summary endpoint, and a static map image gallery.
 """
 import os
 import json
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from google import genai
 
@@ -17,6 +18,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Serve static map images from backend/static/maps/
+app.mount("/static", StaticFiles(directory="static"), name="static")
 
 # Configure Gemini client with your API key (set as an environment variable, never hardcoded)
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
@@ -35,6 +39,9 @@ RESULTS = {
     "validation_points_checked": 80
 }
 
+MAP_TYPES = ["rgb", "ndvi", "ndbi", "classified"]
+YEARS = ["2019", "2025"]
+
 
 class SummaryResponse(BaseModel):
     narrative: str
@@ -51,6 +58,24 @@ def get_results():
     return RESULTS
 
 
+@app.get("/maps")
+def list_maps():
+    """Returns metadata about available map images for the frontend gallery."""
+    maps = []
+    for map_type in MAP_TYPES:
+        for year in YEARS:
+            filename = f"{map_type}_{year}.png"
+            path = f"static/maps/{filename}"
+            if os.path.exists(path):
+                maps.append({
+                    "type": map_type,
+                    "year": year,
+                    "label": f"{map_type.upper()} — {year}",
+                    "url": f"/static/maps/{filename}"
+                })
+    return {"maps": maps}
+
+
 @app.get("/ai-summary", response_model=SummaryResponse)
 def get_ai_summary():
     """
@@ -59,16 +84,14 @@ def get_ai_summary():
     """
     prompt = f"""You are a GeoAI analyst. Write a clear, cautious, 4-5 sentence
 summary of these land-use change findings for a public dashboard. Use terms
-like "estimated" and "detected possible ch
-ange" rather than definitive claims.
+like "estimated" and "detected possible change" rather than definitive claims.
 
 Data: {json.dumps(RESULTS, indent=2)}
 """
     try:
         response = client.models.generate_content(
-         model="gemini-3.6-flash",
-          contents=prompt
-
+            model="gemini-3.6-flash",
+            contents=prompt
         )
         return {"narrative": response.text}
     except Exception as e:
